@@ -7,17 +7,24 @@ type Con struct {
 
 func New(options ...Option) (*Con, error) {
 	c := Con{
-		args:    map[string]string{},
-		context: map[string]interface{}{},
+		args:    make(map[string]string),
+		context: make(map[string]interface{}),
 	}
 
 	settings := Options{
 		file: "",
 		dir:  "",
-		args: map[string]string{},
+		args: make(map[string]string),
 	}
 
 	err := c.resolveOptions(&settings, options...)
+	if err != nil {
+		return nil, err
+	}
+
+	c.args = settings.args
+
+	err = loadEnv()
 	if err != nil {
 		return nil, err
 	}

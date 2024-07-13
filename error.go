@@ -12,3 +12,7 @@ func ErrDirIsAlreadySpecified(dir string) error {
 func ErrFileIsAlreadySpecified(file string) error {
 	return errors.New(fmt.Sprintf("specifying a con directory is not allowed if file is already specified: '%s'", file))
 }
+
+func ErrUnableToLoadDotEnvFile() error {
+	return errors.New("unable to load .env file")
+}

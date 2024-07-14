@@ -38,3 +38,17 @@ func (c *Con) Int(key string) *int64 {
 
 	return &val
 }
+
+func (c *Con) Float(key string) *float64 {
+	detail, ok := c.context[key]
+	if !ok {
+		return nil
+	}
+
+	val, err := strconv.ParseFloat(detail.value, 64)
+	if err != nil {
+		return nil
+	}
+
+	return &val
+}

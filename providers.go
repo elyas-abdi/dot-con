@@ -24,3 +24,17 @@ func (c *Con) Bool(key string) *bool {
 
 	return &val
 }
+
+func (c *Con) Int(key string) *int64 {
+	detail, ok := c.context[key]
+	if !ok {
+		return nil
+	}
+
+	val, err := strconv.ParseInt(detail.value, 0, 64)
+	if err != nil {
+		return nil
+	}
+
+	return &val
+}

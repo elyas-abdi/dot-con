@@ -1,5 +1,7 @@
 package con
 
+import `strconv`
+
 func (c *Con) String(key string) *string {
 	detail, ok := c.context[key]
 	if !ok {
@@ -7,4 +9,18 @@ func (c *Con) String(key string) *string {
 	}
 
 	return &detail.value
+}
+
+func (c *Con) Bool(key string) *bool {
+	detail, ok := c.context[key]
+	if !ok {
+		return nil
+	}
+
+	val, err := strconv.ParseBool(detail.value)
+	if err != nil {
+		return nil
+	}
+
+	return &val
 }

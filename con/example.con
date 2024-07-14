@@ -4,6 +4,7 @@ someKey1 = someValue1
 someKey1 = someValue1InProd
 someKey2 = someValue2InProd
 someKey3 = someValue3InProd
+someKey4 = false
 
 [stage: prod] [region: us-west-1] [aws_account: *]
 someKey1 = someValue1InProdWest1

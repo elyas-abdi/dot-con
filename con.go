@@ -1,5 +1,7 @@
 package con
 
+import `fmt`
+
 type Con struct {
 	args    map[string]string
 	context map[string]Detail
@@ -28,17 +30,9 @@ func New(options ...Option) (*Con, error) {
 	if err != nil {
 		return nil, err
 	}
+	fmt.Printf("%+v\n", c)
 
 	return &c, nil
-}
-
-func (c *Con) Context(key string) interface{} {
-	value, ok := c.context[key]
-	if !ok {
-		return nil
-	}
-
-	return value
 }
 
 func (c *Con) resolveOptions(settings *Options, options ...Option) error {

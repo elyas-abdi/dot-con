@@ -5,6 +5,11 @@ someKey1 = someValue1InProd
 someKey2 = someValue2InProd
 someKey3 = someValue3InProd
 
+[stage: prod] [region: us-west-1] [aws_account: *]
+someKey1 = someValue1InProdWest1
+someKey2 = someValue2InProdWest2
+someKey3 = someValue3InProdWest3
+
 [stage: *] [region: us-east-2] [aws_account: 12345678]
 someKey1 = someValue1InUsEast2ForAccount12345678
 someKey2 = someValue2InUsEast2ForAccount12345678

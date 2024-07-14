@@ -52,13 +52,17 @@ func (c *Con) calculateWeight(factors map[string]string) float64 {
 			}
 		}
 
-		if c.args[factor] != def && c.args[factor] != "*" {
+		if c.args[factor] != def && def != "*" {
 			return 0
 		}
 
 		if c.args[factor] == def || def == "*" {
 			matched++
 		}
+	}
+
+	if matched == 0 {
+		return 0
 	}
 
 	return float64(matched / len(factors))

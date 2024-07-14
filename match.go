@@ -1,4 +1,4 @@
-package con
+package config
 
 import (
 	`regexp`
@@ -11,4 +11,8 @@ func matchesAssignmentPattern(str string) bool {
 
 func matchesFactorsPattern(str string) bool {
 	return strings.HasPrefix(str, factorsPrefix) && strings.HasSuffix(str, factorsSuffix)
+}
+
+func matchesEnumPattern(str string) bool {
+	return regexp.MustCompile(`(\w+)\s*\|\s*(\w+)(\s*\|\s*\w+)*`).MatchString(str)
 }

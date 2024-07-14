@@ -1,6 +1,7 @@
-package con
+package config
 
 import (
+	`fmt`
 	`os`
 	`strings`
 )
@@ -10,7 +11,7 @@ type detail struct {
 	value  string
 }
 
-func (c *Con) addContext(key string, value string, factors map[string]string, weight float64, calculateWeight bool) (bool, float64) {
+func (c *Config) addContext(key string, value string, factors map[string]string, weight float64, calculateWeight bool) (bool, float64) {
 	if calculateWeight {
 		weight = c.calculateWeight(factors)
 	}
@@ -39,7 +40,7 @@ func (c *Con) addContext(key string, value string, factors map[string]string, we
 	return false, weight
 }
 
-func (c *Con) calculateWeight(factors map[string]string) float64 {
+func (c *Config) calculateWeight(factors map[string]string) float64 {
 	matched := 0
 	for factor, def := range factors {
 		_, ok := c.args[factor]
@@ -52,13 +53,25 @@ func (c *Con) calculateWeight(factors map[string]string) float64 {
 			}
 		}
 
-		if c.args[factor] != def && def != "*" {
-			return 0
+		if matchesEnumPattern(def) {
+			fmt.Printf("\ndid match for %+v\n", def)
+			items := strings.Split(def, " | ")
+			for _, item := range items {
+				if c.args[factor] == item {
+					matched++
+					break
+				}
+			}
+		} else {
+			if c.args[factor] != def && def != "*" {
+				return 0
+			}
+
+			if c.args[factor] == def || def == "*" {
+				matched++
+			}
 		}
 
-		if c.args[factor] == def || def == "*" {
-			matched++
-		}
 	}
 
 	if matched == 0 {

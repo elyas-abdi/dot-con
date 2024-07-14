@@ -1,44 +1,35 @@
-package con
+package config
 
-type Con struct {
+type Config struct {
 	args    map[string]string
 	context map[string]detail
 	dir     string
 }
 
-func New(opts ...option) (*Con, error) {
-	c := Con{
+func New() *Config {
+	c := Config{
 		args:    make(map[string]string),
 		context: make(map[string]detail),
 	}
 
-	settings := options{
-		args: make(map[string]string),
-	}
-
-	err := c.resolveOptions(&settings, opts...)
-	if err != nil {
-		return nil, err
-	}
-
-	c.args = settings.args
-	c.dir = settings.dir
-
-	err = c.parseDir()
-	if err != nil {
-		return nil, err
-	}
-
-	return &c, nil
+	return &c
 }
 
-func (c *Con) resolveOptions(settings *options, options ...option) error {
-	for _, option := range options {
-		err := option(settings)
-		if err != nil {
-			return err
-		}
+func (c *Config) Load() (*Config, error) {
+	err := c.parseDir()
+	if err != nil {
+		return nil, err
 	}
 
-	return nil
+	return c, nil
+}
+
+func (c *Config) access(key string) *string {
+
+	detail, ok := c.context[key]
+	if !ok {
+		return nil
+	}
+
+	return &detail.value
 }

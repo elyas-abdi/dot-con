@@ -1,4 +1,4 @@
-package con
+package config
 
 import (
 	`bufio`
@@ -16,7 +16,7 @@ type parsedItem struct {
 	NewFactorDiscovered bool
 }
 
-func (c *Con) extract(line string, factors map[string]string) (*parsedItem, error) {
+func (c *Config) extract(line string, factors map[string]string) (*parsedItem, error) {
 	item := parsedItem{
 		Factors:             factors,
 		NewFactorDiscovered: false,
@@ -49,7 +49,7 @@ func (c *Con) extract(line string, factors map[string]string) (*parsedItem, erro
 	return nil, nil
 }
 
-func (c *Con) parseDir() error {
+func (c *Config) parseDir() error {
 
 	if len(c.dir) == 0 {
 		c.dir = defaultConDir
@@ -117,10 +117,12 @@ func (c *Con) parseDir() error {
 	weight := 0.0
 	calculate := false
 	for result := range resultCh {
-		if result != nil && result.Key != "" && result.Value != "" {
-			_, weight = c.addContext(result.Key, result.Value, result.Factors, weight, calculate)
-		} else if result != nil {
-			calculate = result.NewFactorDiscovered
+		if result != nil {
+			if result.Key != "" && result.Value != "" {
+				_, weight = c.addContext(result.Key, result.Value, result.Factors, weight, calculate)
+			} else {
+				calculate = result.NewFactorDiscovered
+			}
 		}
 	}
 

@@ -1,4 +1,4 @@
-someKey1 = someGlobalValue1
+someKey1 = someCatchAllValue
 
 [stage: prod]
 someKey1 = someValue1InProd
@@ -6,26 +6,24 @@ someKey2 = someValue2InProd
 someKey3 = someValue3InProd
 someKey4 = false
 
-[stage: prod] [region: us-west-1]
+[stage: prod] [region: us-west-1 | us-west-2]
 someKey1 = someValue1InProdWest1
 someKey2 = someValue2InProdWest2
 someKey3 = someValue3InProdWest3
 
-[region: us-east-2] [aws_account: 12345678]
-someKey1 = someValue1InUsEast2ForAccount12345678
-someKey2 = someValue2InUsEast2ForAccount12345678
-someKey3 = 30921
+[stage: beta] [region: us-west-2]
+someKey1 = someValue1InUsWest2
+someKey2 = [ele1, ele2, ele3]
+someKey3 = [ele1, ele2, ele3]
 
-[stage: beta] [region: *] [aws_account: 12345678]
+[stage: beta] [aws_account: 12345678]
 someKey1 = someValue1InBetaForAccount12345678
 someKey2 = [ele1, ele2, ele3]
 someKey3 = 9209182
 someKey4 = someValue4InBetaForAccount12345678
 
-[stage: beta] [region: us-west-2] [aws_account: *]
-someKey1 = someValue1InUsWest2
-someKey2 = [ele1, ele2, ele3]
-someKey3 = [ele1, ele2, ele3]
-
-[stage: beta] [region: *] [aws_account: *] [anotherFactor: coolFactor]
+[stage: beta] [anotherFactor: someFactor]
 someKey1 = someValue1ForCoolFactor
+
+[region: me-1]
+someKey1 = someValue1InMiddleEast1

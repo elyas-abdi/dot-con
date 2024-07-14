@@ -1,4 +1,4 @@
-package con
+package config
 
 const assignmentSeparator = "="
 const defaultConDir = "./con"

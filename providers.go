@@ -1,6 +1,9 @@
 package con
 
-import `strconv`
+import (
+	`strconv`
+	`strings`
+)
 
 func (c *Con) String(key string) *string {
 	detail, ok := c.context[key]
@@ -51,4 +54,16 @@ func (c *Con) Float(key string) *float64 {
 	}
 
 	return &val
+}
+
+func (c *Con) StringSlice(key string) *[]string {
+	detail, ok := c.context[key]
+	if !ok {
+		return nil
+	}
+
+	val := detail.value[1 : len(detail.value)-1]
+	slice := strings.Split(val, ",")
+
+	return &slice
 }

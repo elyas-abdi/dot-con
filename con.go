@@ -24,12 +24,10 @@ func New(options ...Option) (*Con, error) {
 	c.args = settings.args
 	c.dir = settings.dir
 
-	err = loadEnv()
+	err = c.parseDir()
 	if err != nil {
 		return nil, err
 	}
-
-	// todo parse con dir
 
 	return &c, nil
 }

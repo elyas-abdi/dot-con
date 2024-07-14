@@ -8,4 +8,10 @@ someKey3 = someValue3
 [STAGE: *] [REGION: us-east-2] [AWS_ACCOUNT: 12345678]
 someKey1 = someValue1
 someKey2 = someValue2
-someKey3 = @int someValue3
+someKey3 = @int 30921
+
+[STAGE: beta] [REGION: *] [AWS_ACCOUNT: 12345678]
+someKey1 = someValue1
+someKey2 = [ele1, ele2, ele3]
+someKey3 = 30921
+someKey4 = someValue4

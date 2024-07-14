@@ -1,17 +1,25 @@
 someKey1 = someValue1
 
-[STAGE: prod] [REGION: *] [AWS_ACCOUNT: *]
-someKey1 = someValue1
-someKey2 = someValue2
-someKey3 = someValue3
+[stage: prod] [region: *] [aws_account: *]
+someKey1 = someValue1InProd
+someKey2 = someValue2InProd
+someKey3 = someValue3InProd
 
-[STAGE: *] [REGION: us-east-2] [AWS_ACCOUNT: 12345678]
-someKey1 = someValue1
-someKey2 = someValue2
-someKey3 = @int 30921
-
-[STAGE: beta] [REGION: *] [AWS_ACCOUNT: 12345678]
-someKey1 = someValue1
-someKey2 = [ele1, ele2, ele3]
+[stage: *] [region: us-east-2] [aws_account: 12345678]
+someKey1 = someValue1InUsEast2ForAccount12345678
+someKey2 = someValue2InUsEast2ForAccount12345678
 someKey3 = 30921
-someKey4 = someValue4
+
+[stage: beta] [region: *] [aws_account: 12345678]
+someKey1 = someValue1InBetaForAccount12345678
+someKey2 = [ele1, ele2, ele3]
+someKey3 = 9209182
+someKey4 = someValue4InBetaForAccount12345678
+
+[region: us-west-2] [stage: beta] [aws_account: *]
+someKey1 = someValue1InUsWest2
+someKey2 = [ele1, ele2, ele3]
+someKey3 = [ele1, ele2, ele3]
+
+[anotherFactor: coolFactor] [aws_account: *] [stage: beta]
+someKey1 = someValue1ForCoolFactor

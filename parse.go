@@ -2,6 +2,7 @@ package con
 
 import (
 	`bufio`
+	`fmt`
 	`os`
 	`path/filepath`
 	`strings`
@@ -24,10 +25,19 @@ func (c *Con) extract(line string, factors map[string]string) (*parsedItem, erro
 		return nil, nil
 	}
 
-	if matchesAssignment(line) {
+	if matchesAssignmentPattern(line) {
 		assignment := strings.Split(line, assignmentSeparator)
 		item.Key = strings.TrimSpace(assignment[0])
 		item.Value = strings.TrimSpace(assignment[1])
+		return &item, nil
+	}
+
+	if matchesFactorsPattern(line) {
+		factorDefinitions := strings.Split(line[1:len(line)-1], fmt.Sprintf("%s %s", factorsPrefix, factorsSuffix))
+		for _, def := range factorDefinitions {
+			pair := strings.Split(def, ":")
+			item.Factors[strings.ToUpper(strings.TrimSpace(pair[0]))] = strings.ToUpper(strings.TrimSpace(pair[1]))
+		}
 		return &item, nil
 	}
 
@@ -99,7 +109,9 @@ func (c *Con) parseDir() error {
 
 	go func() {
 		for result := range resultCh {
-			c.addContext(result.Key, result.Value)
+			if result.Key != "" || result.Value != "" {
+				c.addContext(result.Key, result.Value)
+			}
 		}
 	}()
 

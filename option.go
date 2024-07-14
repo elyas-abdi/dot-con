@@ -8,3 +8,4 @@ type accessOption struct {
 
 type accessStringOption struct{ accessOption }
 type accessStringSliceOption struct{ accessOption }
+type accessInt64Option struct{ accessOption }

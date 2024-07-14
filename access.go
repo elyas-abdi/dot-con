@@ -1,6 +1,9 @@
 package config
 
-import `strings`
+import (
+	`strconv`
+	`strings`
+)
 
 func (c *Config) String(key string) *accessStringOption {
 	return &accessStringOption{
@@ -37,4 +40,28 @@ func (o *accessStringSliceOption) Access() *[]string {
 	slice := strings.Split(sanitized, ", ")
 
 	return &slice
+}
+
+func (c *Config) Int(key string) *accessInt64Option {
+	return &accessInt64Option{
+		accessOption{
+			key:       key,
+			c:         c,
+			accessArg: make(map[string]string),
+		},
+	}
+}
+
+func (o *accessInt64Option) Access() *int64 {
+	val := o.c.access(o.key)
+	if val == nil {
+		return nil
+	}
+
+	integer, err := strconv.ParseInt(*val, 0, 64)
+	if err != nil {
+		return nil
+	}
+
+	return &integer
 }

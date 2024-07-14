@@ -2,22 +2,22 @@ package con
 
 import `strings`
 
-type Option func(o *Options) error
+type option func(o *options) error
 
-type Options struct {
+type options struct {
 	dir  string
 	args map[string]string
 }
 
-func Dir(location string) Option {
-	return func(o *Options) error {
+func Dir(location string) option {
+	return func(o *options) error {
 		o.dir = location
 		return nil
 	}
 }
 
-func Arg(key, value string) Option {
-	return func(o *Options) error {
+func Arg(key, value string) option {
+	return func(o *options) error {
 		o.args[strings.ToUpper(key)] = strings.ToUpper(value)
 		return nil
 	}

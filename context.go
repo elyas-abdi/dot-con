@@ -5,7 +5,7 @@ import (
 	`strings`
 )
 
-type Detail struct {
+type detail struct {
 	weight float64
 	value  string
 }
@@ -19,17 +19,17 @@ func (c *Con) addContext(key string, value string, factors map[string]string, we
 		return false, weight
 	}
 
-	detail, ok := c.context[key]
+	det, ok := c.context[key]
 	if !ok {
-		c.context[key] = Detail{
+		c.context[key] = detail{
 			value:  value,
 			weight: weight,
 		}
 		return true, weight
 	}
 
-	if weight >= detail.weight {
-		c.context[key] = Detail{
+	if weight >= det.weight {
+		c.context[key] = detail{
 			value:  value,
 			weight: weight,
 		}

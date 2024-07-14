@@ -4,21 +4,21 @@ import `fmt`
 
 type Con struct {
 	args    map[string]string
-	context map[string]Detail
+	context map[string]detail
 	dir     string
 }
 
-func New(options ...Option) (*Con, error) {
+func New(opts ...option) (*Con, error) {
 	c := Con{
 		args:    make(map[string]string),
-		context: make(map[string]Detail),
+		context: make(map[string]detail),
 	}
 
-	settings := Options{
+	settings := options{
 		args: make(map[string]string),
 	}
 
-	err := c.resolveOptions(&settings, options...)
+	err := c.resolveOptions(&settings, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -35,7 +35,7 @@ func New(options ...Option) (*Con, error) {
 	return &c, nil
 }
 
-func (c *Con) resolveOptions(settings *Options, options ...Option) error {
+func (c *Con) resolveOptions(settings *options, options ...option) error {
 	for _, option := range options {
 		err := option(settings)
 		if err != nil {

@@ -3,7 +3,7 @@
 A new way to define and access your configurations dynamically based on custom patterns you define.
 
 ##### Here's an example `.con` File
-```toml
+```text
 # define default values at the top of the file
 title = an example dot con file
 key = default value for this key
@@ -79,5 +79,5 @@ You can define and use multiple `.con` files in the same directory, and the clie
 
 ##### Step 3 - Define your config variables
 todo... 
-## 🤓 Under the Hood~~
+## 🤓 Under the Hood
 todo... 

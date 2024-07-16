@@ -1,59 +1,16 @@
 package config
 
 import (
-	`strconv`
-	`strings`
+	"strconv"
+	"strings"
 )
 
-func (c *Config) String(key string) *accessStringOption {
-	return &accessStringOption{
-		accessOption{
-			key:       key,
-			c:         c,
-			accessArg: make(map[string]string),
-		},
-	}
+func (c *Config) Access(key string) *string {
+	return c.access(key)
 }
 
-func (o *accessStringOption) Access() *string {
-	return o.c.access(o.key)
-}
-
-func (c *Config) Slice(key string) *accessStringSliceOption {
-	return &accessStringSliceOption{
-		accessOption{
-			key:       key,
-			c:         c,
-			accessArg: make(map[string]string),
-		},
-	}
-}
-
-func (o *accessStringSliceOption) Access() *[]string {
-	val := o.c.access(o.key)
-	if val == nil {
-		return nil
-	}
-
-	sanitized := *val
-	sanitized = sanitized[1 : len(sanitized)-1]
-	slice := strings.Split(sanitized, ", ")
-
-	return &slice
-}
-
-func (c *Config) Int(key string) *accessInt64Option {
-	return &accessInt64Option{
-		accessOption{
-			key:       key,
-			c:         c,
-			accessArg: make(map[string]string),
-		},
-	}
-}
-
-func (o *accessInt64Option) Access() *int64 {
-	val := o.c.access(o.key)
+func (c *Config) AccessInt(key string) *int64 {
+	val := c.access(key)
 	if val == nil {
 		return nil
 	}
@@ -64,4 +21,17 @@ func (o *accessInt64Option) Access() *int64 {
 	}
 
 	return &integer
+}
+
+func (c *Config) AccessSlice(key string) *[]string {
+	val := c.access(key)
+	if val == nil {
+		return nil
+	}
+
+	sanitized := *val
+	sanitized = sanitized[1 : len(sanitized)-1]
+	slice := strings.Split(sanitized, ", ")
+
+	return &slice
 }

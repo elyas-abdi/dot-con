@@ -1,7 +1,0 @@
-someKey2 = someGlobalValue2
-
-[stage: prod]
-someKeyQ = val1InProd
-someKeyM = val2InProd
-someKeyO = val3InProd
-someKeyV = val4InProd

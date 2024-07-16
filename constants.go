@@ -1,6 +1,6 @@
 package config
 
 const assignmentSeparator = "="
-const defaultConDir = "./con"
+const defaultConDir = "./config"
 const factorsPrefix = "["
 const factorsSuffix = "]"

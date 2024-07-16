@@ -39,12 +39,14 @@ package main
 import `github.com/elyas-abdi/dot-con`
 
 func main() {
-    con, err := config.New().Load()
+    cfg, err := config.New().Load()
     if err != nil {
         print(err)
     }
 	
-    value := con.String("key").Access()
+    value := cfg.Access("key")
+    intValue := cfg.AccessInt("some other key")
+    sliceValue := cfg.AccessSlice("another key")
 }
 ```
 
@@ -61,7 +63,7 @@ go get github.com/elyas-abdi/dot-con
 ## 🦮️ Usage Guide
 
 ##### Step 1 - Create a directory to store your configuration files.
-You can name your directory whatever you prefer. However, the Dot Con client will default to looking for a folder named `con` in your root project directory when searching for `.con` files, unless you specify a custom directory path when initializing the client.
+You can name your directory whatever you prefer. However, the Dot Con client will default to looking for a folder named `config` in your root project directory when searching for `.con` files, unless you specify a custom directory path when initializing the client.
 
 ##### Step 2 - Create a .con file to define your config variables in
 Inside the directory you created in step 1, create a new file that ends in `.con`. This is where you will define your config variables and access patterns.
@@ -69,7 +71,7 @@ Inside the directory you created in step 1, create a new file that ends in `.con
 If you are sticking with the default layout that Dot Con uses, then your project structure will look something like this:
 ```text
 ├── your-project-directory
-│   ├── con
+│   ├── config
 │   │   ├── {any file name}.con
 │   ├── go.mod
 │   ├── go.sum

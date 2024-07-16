@@ -1,9 +1,8 @@
 package config
 
 import (
-	`fmt`
-	`os`
-	`strings`
+	"os"
+	"strings"
 )
 
 type detail struct {
@@ -54,7 +53,6 @@ func (c *Config) calculateWeight(factors map[string]string) float64 {
 		}
 
 		if matchesEnumPattern(def) {
-			fmt.Printf("\ndid match for %+v\n", def)
 			items := strings.Split(def, " | ")
 			for _, item := range items {
 				if c.args[factor] == item {

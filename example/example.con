@@ -1,0 +1,27 @@
+# define default values at the top of the file
+title = an example dot con file
+key = default value for this key
+
+# you can define wildcards explicitly,
+[stage: prod] [region: *]
+key = value for prod stage regardless of what region is set
+
+# or you can omit the pattern element/s to achive the same effect
+[stage: prod]
+key = value for prod stage regardless of what region is set
+
+# you can also define multiple values for your pattern elements
+[stage: alpha | beta | gamma] [region: us-east-2]
+key = shared value for test stages (alpha, beta, or gamma) in us-east-2
+another_key = another value
+
+# use of string arrays, int, floats, chars are supported in addition to string types
+[region: us-east-2] [stage: prod-na] # <- you can also define the pattern in any order
+some_int = 987
+some_float = 3.141592653589793238462643383279502884197
+some_array_of_strings = [ele1, ele2, ele3, ele4]
+some_char = c
+
+# you can add as many pattern elements as you wish
+[region: us-east-2] [stage: prod-na] [experimental: true] [some other pattern element: pattern element one] [another pattern element: pattern element two]
+some really specific key = some really specifc value for this scenario
